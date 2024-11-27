@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// app.js
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./components/Login/Login";
 import ClientesCrud from "./components/Clientes/ClientesCrud";
@@ -6,15 +7,18 @@ import "./components/Login/Login.css";
 import "./App.css";
 
 function App() {
-  const [userType, setUserType] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
 
-  const handleLogin = (email, password) => {
-    // Simula autenticación
-    if (email === "admin@admin.com" && password === "admin") {
-      setUserType("admin");
-    } else {
-      alert("Credenciales inválidas");
+  useEffect(() => {
+    // Verifica si hay un token en localStorage cuando se carga la página
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      setAccessToken(token);
     }
+  }, []);
+
+  const handleLogin = (token) => {
+    setAccessToken(token);
   };
 
   return (
@@ -23,14 +27,14 @@ function App() {
         <Route
           path="/"
           element={
-            userType === "admin" ? (
-              <Navigate to="/crud" replace /> // Redirige al CRUD si es admin
+            accessToken ? (
+              <Navigate to="/crud" replace /> // Redirige al CRUD si está autenticado
             ) : (
               <Login onLogin={handleLogin} />
             )
           }
         />
-        <Route path="/crud" element={<ClientesCrud />} />
+        <Route path="/crud" element={<ClientesCrud accessToken={accessToken} />} />
       </Routes>
     </Router>
   );

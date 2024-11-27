@@ -1,14 +1,32 @@
+// login.js
 import React, { useState } from "react";
+import axios from "axios";
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin(email, password); // Llama a la función de login
+    try {
+      // Realiza la solicitud POST al endpoint de login
+      const response = await axios.post("http://localhost:8000/api/login/", {
+        email: email,
+        password: password,
+      });
+      if (response.data.access_token) {
+        // Si la autenticación es exitosa, pasa el token a App.js
+        localStorage.setItem("access_token", response.data.access_token);
+        onLogin(response.data.access_token);
+      } else {
+        alert("Credenciales inválidas");
+      }
+    } catch (error) {
+      alert("Error en la autenticación");
+    }
   };
+  
 
   return (
     <div className="login-container">

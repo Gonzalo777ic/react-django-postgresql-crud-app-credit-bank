@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'users.User'
+
 
 # Application definition
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'django_extensions',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -48,6 +51,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
+
+AUTHENTICATION_BACKENDS = (
+    'users.auth.EmailAuthBackend',  # Correcto, usa 'auth', no 'backends'
+    'django.contrib.auth.backends.ModelBackend',  # Este es el backend predeterminado para autenticación
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
