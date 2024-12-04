@@ -63,19 +63,34 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{self.tipo} - {self.monto} - {self.cuenta}'
 
+class CardType(models.Model):
+    nombre = models.CharField(max_length=50, unique=True)
+    descripcion = models.TextField(null=True, blank=True)
+    # Otros atributos adicionales, como tarifas o beneficios
+    tarifa_anual = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    # Puedes agregar más atributos según el tipo de tarjeta
+
+    class Meta:
+        db_table = 'card_types'
+
+    def __str__(self):
+        return self.nombre
+
 class Card(models.Model):
     cuenta = models.ForeignKey(Account, on_delete=models.CASCADE)  # Relación con la tabla Account
     numero_tarjeta = models.CharField(max_length=16, unique=True)
-    tipo_tarjeta = models.CharField(max_length=50)
+    tipo_tarjeta = models.ForeignKey(CardType, on_delete=models.CASCADE)  # Relación con CardType
     fecha_expiracion = models.DateField()
     codigo_seguridad = models.CharField(max_length=3)
     estado = models.CharField(max_length=50, default='activa')
     
     class Meta:
-        db_table = 'cards'  # Asegúrate de que la tabla en la base de datos se llama 'cards'
+        db_table = 'cards'
 
     def __str__(self):
-        return f'{self.tipo_tarjeta} - {self.numero_tarjeta}'
+        return f'{self.tipo_tarjeta.nombre} - {self.numero_tarjeta}'
+    
+
 
 class Loan(models.Model):
     cliente = models.ForeignKey(Customers, on_delete=models.CASCADE)  # Relación con la tabla Customer
@@ -84,7 +99,7 @@ class Loan(models.Model):
     fecha_inicio = models.DateTimeField(auto_now_add=True)
     fecha_finalizacion = models.DateTimeField(null=True, blank=True)
     estado = models.CharField(max_length=50, default='activo')
-    
+
     class Meta:
         db_table = 'loans'  # Asegúrate de que la tabla en la base de datos se llama 'loans'
 

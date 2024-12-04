@@ -1,0 +1,21 @@
+/* src/Layout/Footer.css */
+.footer {
+  background-color: #333;  /* Fondo oscuro */
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;  /* Asegura que el footer se quede al fondo */
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.isique {
+  font-size: 24px; /* Más grande que los otros elementos */
+  font-weight: bold;
+  margin-top: 10px;
+  color: #10576D;  /* Un color destacado para ISIQUE Productions */
+}

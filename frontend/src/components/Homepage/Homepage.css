@@ -1,0 +1,110 @@
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+    margin: 0;
+  }
+  
+  .header {
+    background-color: #333;
+    color: white;
+    margin-left: 200px; /* Ajustar el header para alinearse con el contenido */
+    padding: 20px;
+    text-align: center;
+  }
+  
+
+  .navbar {
+    margin-top: 10px;
+  }
+  
+  .navbar-button {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 0;
+  }
+  
+  .navbar-button:hover {
+    background-color: #e67e22;
+  }
+  
+  .body {
+    flex-grow: 1;
+    margin-left: 220px; /* Espacio para que el contenido no se superponga con la barra de navegación */
+    padding: 20px;
+    flex-grow: 1; /* Permitir que el contenido ocupe el espacio restante */
+
+    text-align: center;
+    background-color: #f4f4f4;
+  }
+  
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    grid-gap: 20px; /* Espaciado entre los gráficos */
+    margin-top: 20px;
+    grid-template-rows: repeat(2, auto); /* Ajusta el alto según el contenido */
+  }
+
+  .chart-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center; /* Centra los gráficos */
+    align-items: center;
+    max-width: 100%; /* Asegura que el contenedor no exceda el ancho del contenedor padre */
+    height: 100%;
+  }
+
+  .chart-item canvas {
+    max-width: 100%; /* Asegura que los gráficos no excedan el ancho del contenedor */
+    max-height: 100%; /* Limita la altura máxima del gráfico */
+    width: 100%; /* Hace que el gráfico se ajuste al 100% del contenedor */
+    height: auto; /* Mantiene la relación de aspecto del gráfico */
+  }
+
+  
+  /* Estilos para el modal de confirmación */
+.logout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}

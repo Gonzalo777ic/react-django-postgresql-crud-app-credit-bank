@@ -1,0 +1,59 @@
+.navbar {
+  margin: 0;
+  position: fixed; /* Fijar la barra lateral */
+  top: 0;
+  left: 0;
+  width: 220px; /* Ancho de la barra lateral */
+  height: 100vh; /* Asegura que ocupe toda la altura de la página */
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Scroll si el contenido es largo */
+}
+
+.navbar-logo {
+  width: 100%; /* Ancho completo del navbar */
+  padding: 0; /* Espaciado interno */
+  text-align: center; /* Centrar horizontalmente */
+  background-color: #10576D; /* Fondo gris claro para el logo */
+  margin: 0;
+}
+
+.navbar-logo img {
+  max-width: 80%; /* Tamaño adaptable, ocupa un 80% del contenedor */
+  height: auto; /* Mantener proporciones */
+}
+
+.navbar-button {
+  flex: 1; /* Todos los botones tendrán el mismo tamaño */
+  width: 100%; /* Ancho completo del contenedor */
+  height: auto; /* Ajustar la altura automáticamente */
+  padding: 11px; /* Sin padding interno */
+  background-color: #10576D; /* Color de los botones */
+  color: white;
+  border: none;
+  border-radius: 0; /* Bordes rectos */
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  display: flex; /* Para centrar el contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  box-shadow: inset 0 0 0 1px #ccc; /* Separadores con bordes internos */
+}
+
+.navbar-button:last-child {
+  flex: 1; /* Asegura que "Cerrar sesión" tenga el mismo tamaño que los demás */
+}
+
+.navbar-button:hover {
+  background-color: #0056b3; /* Color al pasar el mouse */
+}
+
+.navbar-button:not(:last-child) {
+  border-bottom: 1px solid #ccc; /* Separación entre botones */
+}

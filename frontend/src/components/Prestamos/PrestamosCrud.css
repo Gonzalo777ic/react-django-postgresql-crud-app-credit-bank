@@ -1,0 +1,24 @@
+.prestamos-container {
+    padding: 20px;
+  }
+  
+  .acciones-superiores {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  button, .volver-homepage-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  button:hover, .volver-homepage-btn:hover {
+    background-color: #0056b3;
+  }
+  

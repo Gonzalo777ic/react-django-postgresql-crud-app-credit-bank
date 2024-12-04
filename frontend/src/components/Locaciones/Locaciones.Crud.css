@@ -1,0 +1,62 @@
+.locaciones-crud {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .boton {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .boton:hover {
+    background-color: #0056b3;
+  }
+  
+  .volver-home {
+    margin-bottom: 20px;
+  }
+  
+  .tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tabla th,
+  .tabla td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .tabla th {
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  
+  .tabla tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .tabla tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .boton.editar {
+    background-color: #ffc107;
+  }
+  
+  .boton.eliminar {
+    background-color: #dc3545;
+  }
+  

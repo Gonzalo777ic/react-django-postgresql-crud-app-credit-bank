@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // Importa useNavigate para redirección
 import FormularioClientes from '../Formularios/FormularioCliente';
+import './ClientesCrud.css';
 
 const ClientesCrud = () => {
   const [clientes, setClientes] = useState([]);
-  const [showFormulario, setShowFormulario] = useState(false); // Controla la visibilidad del formulario
-  const [clienteEditando, setClienteEditando] = useState(null); // Cliente que se está editando
-  const [campoOrden, setCampoOrden] = useState('id'); // Campo por el que se ordena
-  const [direccionOrden, setDireccionOrden] = useState('asc'); // Dirección del orden (ascendente o descendente)
+  const [showFormulario, setShowFormulario] = useState(false);
+  const [clienteEditando, setClienteEditando] = useState(null);
+  const [campoOrden, setCampoOrden] = useState('id');
+  const [direccionOrden, setDireccionOrden] = useState('asc');
+  const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
 
-  // Cargar la lista de clientes
+  const navigate = useNavigate();  // Instancia de useNavigate para navegación
+
   useEffect(() => {
     const fetchClientes = async () => {
       try {
@@ -22,15 +26,12 @@ const ClientesCrud = () => {
     fetchClientes();
   }, []);
 
-  // Función para abrir/cerrar el formulario
   const toggleFormulario = (cliente = null) => {
     setShowFormulario(!showFormulario);
-    setClienteEditando(cliente); // Si estamos editando, seteamos el cliente
+    setClienteEditando(cliente);
   };
 
-  // Función para actualizar la lista de clientes después de crear o actualizar uno
   const handleClienteCreado = () => {
-    // Vuelve a cargar la lista de clientes
     const fetchClientes = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/customers/');
@@ -42,18 +43,15 @@ const ClientesCrud = () => {
     fetchClientes();
   };
 
-  // Eliminar cliente
   const handleEliminarCliente = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/customers/${id}/`);
-      console.log('Cliente eliminado');
-      handleClienteCreado(); // Actualizamos la lista después de eliminar
+      handleClienteCreado();
     } catch (error) {
       console.error('Error al eliminar el cliente:', error);
     }
   };
 
-  // Función para ordenar los clientes
   const ordenarClientes = (campo) => {
     const nuevaDireccion = campo === campoOrden && direccionOrden === 'asc' ? 'desc' : 'asc';
     setDireccionOrden(nuevaDireccion);
@@ -68,17 +66,33 @@ const ClientesCrud = () => {
     setClientes(clientesOrdenados);
   };
 
+  const handleClienteClick = (cliente) => {
+    if (clienteSeleccionado && clienteSeleccionado.id === cliente.id) {
+      setClienteSeleccionado(null);
+    } else {
+      setClienteSeleccionado(cliente);
+    }
+  };
+
+  const handleVolverHome = () => {
+    navigate('/');  // Redirige al homepage (ruta base)
+  };
+
   return (
-    <div>
+    <div className="clientes-crud">
       <h2>Clientes</h2>
-      <button onClick={() => toggleFormulario()}>
+      
+      <button className="btn-home" onClick={handleVolverHome}>
+        Volver al Homepage
+      </button>
+
+      <button className="btn-toggle-form" onClick={() => toggleFormulario()}>
         {showFormulario ? 'Cerrar Formulario' : 'Agregar Cliente'}
       </button>
 
-      {/* Mostrar el formulario solo si showFormulario es true */}
       {showFormulario && <FormularioClientes onClienteCreado={handleClienteCreado} cliente={clienteEditando} />}
 
-      <table>
+      <table className="clientes-table">
         <thead>
           <tr>
             <th onClick={() => ordenarClientes('id')}>ID {campoOrden === 'id' ? (direccionOrden === 'asc' ? '↑' : '↓') : ''}</th>
@@ -97,7 +111,11 @@ const ClientesCrud = () => {
             </tr>
           ) : (
             clientes.map(cliente => (
-              <tr key={cliente.id}>
+              <tr
+                key={cliente.id}
+                onClick={() => handleClienteClick(cliente)}
+                className={clienteSeleccionado && clienteSeleccionado.id === cliente.id ? 'selected' : ''}
+              >
                 <td>{cliente.id}</td>
                 <td>{cliente.nombre}</td>
                 <td>{cliente.email}</td>
@@ -105,14 +123,47 @@ const ClientesCrud = () => {
                 <td>{cliente.direccion}</td>
                 <td>{cliente.fecha_registro}</td>
                 <td>
-                  <button onClick={() => toggleFormulario(cliente)}>Editar</button>
-                  <button onClick={() => handleEliminarCliente(cliente.id)}>Eliminar</button>
+                  <button className="btn-edit" onClick={() => toggleFormulario(cliente)}>Editar</button>
+                  <button className="btn-delete" onClick={() => handleEliminarCliente(cliente.id)}>Eliminar</button>
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+
+      {clienteSeleccionado && (
+        <div className="client-details">
+          <h3>Detalles de Cliente: {clienteSeleccionado.nombre}</h3>
+
+          {clienteSeleccionado.cuentas && clienteSeleccionado.cuentas.length > 0 && (
+            <div className="client-info">
+              <h4>Cuentas Asociadas</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID Cuenta</th>
+                    <th>Tipo Cuenta</th>
+                    <th>Saldo</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clienteSeleccionado.cuentas.map(cuenta => (
+                    <tr key={cuenta.id}>
+                      <td>{cuenta.id}</td>
+                      <td>{cuenta.tipo_cuenta}</td>
+                      <td>{cuenta.saldo}</td>
+                      <td>{cuenta.estado}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          {/* Otras secciones de detalle como transacciones, tarjetas, etc. */}
+        </div>
+      )}
     </div>
   );
 };

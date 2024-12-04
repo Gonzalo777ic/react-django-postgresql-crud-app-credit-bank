@@ -1,28 +1,81 @@
+/* Estilos específicos para la página de login */
+.login-page {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4; /* Fondo base */
+  overflow: hidden;
+}
+
+/* Animación de rombos en el fondo */
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-radial-gradient(circle, #10576D 10%, transparent 20%);
+  animation: moveDiamonds 10s linear infinite;
+  z-index: -1;
+}
+
+/* Contenedor del formulario */
 .login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilos para el formulario */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para los inputs */
+input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #10576D;
+  outline: none;
+}
+
+/* Estilos para el botón */
+button {
+  padding: 10px;
+  background-color: #10576D; /* Color principal */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #084f57;
+}
+
+/* Animación para los rombos */
+@keyframes moveDiamonds {
+  0% {
+    background-position: 0 0;
   }
-  
-  form {
-    display: flex;
-    flex-direction: column;
+  100% {
+    background-position: 200px 200px;
   }
-  
-  input {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #37506F;
-    color: white;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-  
+}

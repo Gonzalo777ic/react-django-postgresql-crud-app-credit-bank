@@ -101,7 +101,7 @@ DATABASES = {
         'NAME': 'db_project',  # Nombre de la base de datos correcta
         'USER': 'postgres',    # Usuario de PostgreSQL
         'PASSWORD': 'pingo123',  # Contraseña de PostgreSQL
-        'HOST': '192.168.1.11',   # Dirección del servidor
+        'HOST': '192.168.181.186',   # Dirección del servidor
         'PORT': '5432',        # Puerto de PostgreSQL
     }
 }
